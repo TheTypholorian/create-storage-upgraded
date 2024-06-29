@@ -25,12 +25,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class PasserBlock extends BaseEntityBlock {
-
     public static final DirectionProperty FACING = DirectionalBlock.FACING;
     public final boolean isSmart;
 
     public PasserBlock(FabricBlockSettings properties, boolean isSmart) {
         super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).hardness(1.5f));
+
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.DOWN));
         this.isSmart = isSmart;
     }
@@ -56,60 +56,64 @@ public class PasserBlock extends BaseEntityBlock {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
-    private byte hitPart(BlockState blockState, BlockHitResult hit) {
-        Direction facing = blockState.getValue(FACING);
-        if (hit.getDirection() == facing || hit.getDirection() == facing.getOpposite()) {
-            return 0;
+    private HitPart hitPart(Direction direction, BlockHitResult hit) {
+        if (hit.getDirection() == direction || hit.getDirection() == direction.getOpposite()) {
+            return HitPart.A;
         } else if (hit.getDirection() == Direction.UP || hit.getDirection() == Direction.DOWN) {
-            return 1;
+            return HitPart.B;
         } else {
-            return 2;
+            return HitPart.C;
         }
     }
 
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hit) {
-        boolean isClient = level.isClientSide();
-        if (!isClient) {
-            if (hand == InteractionHand.OFF_HAND) return InteractionResult.SUCCESS;
-            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(AllTags.AllItemTags.WRENCH.tag))
-                return InteractionResult.PASS;
+        if (!level.isClientSide()) {
+            if (hand == InteractionHand.OFF_HAND) {
+                return InteractionResult.SUCCESS;
+            }
 
-            byte hitPart = hitPart(blockState, hit);
+            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(AllTags.AllItemTags.WRENCH.tag)) {
+                return InteractionResult.PASS;
+            }
 
             Direction direction = blockState.getValue(FACING);
-            if (hitPart == 1) {
-                // Hit top / bottom rotate horizontally
-                direction = switch (blockState.getValue(FACING)) {
-                    case NORTH -> Direction.EAST;
-                    case EAST -> Direction.SOUTH;
-                    case SOUTH -> Direction.WEST;
-                    case WEST -> Direction.NORTH;
-                    case UP, DOWN -> direction;
-                };
-            } else if (hitPart == 2) {
-                // Hit side rotate vertically
-                if (hit.getDirection() == Direction.EAST || hit.getDirection() == Direction.WEST) {
-                    direction = switch (direction) {
-                        case UP -> Direction.SOUTH;
-                        case DOWN -> Direction.NORTH;
-                        case NORTH -> Direction.UP;
-                        case SOUTH -> Direction.DOWN;
-                        case EAST, WEST -> direction;
-                    };
-                } else if (hit.getDirection() == Direction.NORTH || hit.getDirection() == Direction.SOUTH) {
-                    direction = switch (direction) {
-                        case UP -> Direction.WEST;
-                        case EAST -> Direction.UP;
-                        case DOWN -> Direction.EAST;
-                        case WEST -> Direction.DOWN;
-                        case NORTH, SOUTH -> direction;
-                    };
-                }
-            }
-            level.setBlockAndUpdate(blockPos, blockState.setValue(FACING, direction));
 
+            switch (hitPart(direction, hit)) {
+                case B:
+                    // Hit top / bottom rotate horizontally
+                    direction = switch (blockState.getValue(FACING)) {
+                        case NORTH -> Direction.EAST;
+                        case EAST -> Direction.SOUTH;
+                        case SOUTH -> Direction.WEST;
+                        case WEST -> Direction.NORTH;
+                        case UP, DOWN -> direction;
+                    };
+                    break;
+                case C:
+                    if (hit.getDirection() == Direction.EAST || hit.getDirection() == Direction.WEST) {
+                        direction = switch (direction) {
+                            case UP -> Direction.SOUTH;
+                            case DOWN -> Direction.NORTH;
+                            case NORTH -> Direction.UP;
+                            case SOUTH -> Direction.DOWN;
+                            case EAST, WEST -> direction;
+                        };
+                    } else if (hit.getDirection() == Direction.NORTH || hit.getDirection() == Direction.SOUTH) {
+                        direction = switch (direction) {
+                            case UP -> Direction.WEST;
+                            case EAST -> Direction.UP;
+                            case DOWN -> Direction.EAST;
+                            case WEST -> Direction.DOWN;
+                            case NORTH, SOUTH -> direction;
+                        };
+                    }
+                    break;
+            }
+
+            level.setBlockAndUpdate(blockPos, blockState.setValue(FACING, direction));
         }
+
         return InteractionResult.SUCCESS;
     }
 
@@ -134,20 +138,20 @@ public class PasserBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        Direction direction = state.getValue(FACING);
-        return PasserShapeCache.getShape(direction);
+        return PasserShapeCache.getShape(state.getValue(FACING));
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        Direction direction = state.getValue(FACING);
-        return PasserShapeCache.getShape(direction);
+        return PasserShapeCache.getShape(state.getValue(FACING));
     }
 
     @Override
     public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        Direction direction = state.getValue(FACING);
-        return PasserShapeCache.getShape(direction);
+        return PasserShapeCache.getShape(state.getValue(FACING));
     }
 
+    private static enum HitPart {
+        A, B, C
+    }
 }
