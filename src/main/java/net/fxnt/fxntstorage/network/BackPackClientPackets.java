@@ -26,7 +26,7 @@ public class BackPackClientPackets {
                     client.execute(() -> {
                         JetpackController.JetpackState.setFuelLevel(fuelRemaining);
                     });
-        });
+                });
         ClientPlayNetworking.registerGlobalReceiver(FLIGHT_UPGRADE_SEND,
                 (client, handler, buf, responseSender) -> {
                     boolean hasFlightUpgrade = buf.readBoolean();

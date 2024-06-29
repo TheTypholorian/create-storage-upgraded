@@ -18,15 +18,16 @@ import org.joml.Matrix4f;
 
 public class StorageBoxEntityRenderer extends SmartBlockEntityRenderer<StorageBoxEntity> {
     private final BlockEntityRendererProvider.Context context;
-    private static final float[] sideRotationY2D = { 0, 0, 2, 0, 3, 1 };
+    private static final float[] sideRotationY2D = {0, 0, 2, 0, 3, 1};
     private static final int TEXT_COLOR_TRANSPARENT = FastColor.ARGB32.color(0, 255, 255, 255);
+
     public StorageBoxEntityRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
         this.context = context;
     }
 
-    private float getRotationYForSide2D (Direction side) {
-        return sideRotationY2D[side.ordinal()] * 90 * (float)Math.PI / 180f;
+    private float getRotationYForSide2D(Direction side) {
+        return sideRotationY2D[side.ordinal()] * 90 * (float) Math.PI / 180f;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class StorageBoxEntityRenderer extends SmartBlockEntityRenderer<StorageBo
         }
 
         //int color = Util.interpolateColor(0, 15, maxBright);
-        float distance = (float)Math.sqrt(blockEntity.getBlockPos().distToCenterSqr(player.position()));
+        float distance = (float) Math.sqrt(blockEntity.getBlockPos().distToCenterSqr(player.position()));
         float alpha = Math.max(1f - ((distance) / 10), 0.05f);
 
         if (distance > 10) return;
@@ -82,10 +83,10 @@ public class StorageBoxEntityRenderer extends SmartBlockEntityRenderer<StorageBo
 
         // Adjust position to render on the block face
         float ZOffset = 15.05f;
-        poseStack.translate(0.5f, YOffset/16f, ZOffset/16f);  // Adjust these values as needed
+        poseStack.translate(0.5f, YOffset / 16f, ZOffset / 16f);  // Adjust these values as needed
 
         // Flip Text Upside Down & Shrink
-        poseStack.scale(1/64f, -1/64f, 1f);
+        poseStack.scale(1 / 64f, -1 / 64f, 1f);
 
         int color = 0xFFFFFF;
         color = (int) (255 * alpha) << 24 | TEXT_COLOR_TRANSPARENT;

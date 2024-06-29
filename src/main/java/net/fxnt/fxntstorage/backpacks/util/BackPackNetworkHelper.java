@@ -62,7 +62,6 @@ public class BackPackNetworkHelper {
     }
 
 
-
     public static void syncSlotCount(ServerPlayer player, int containerId, int stateId, int slot, ItemStack stack) {
         FriendlyByteBuf buf = PacketByteBufs.create();
         buf.writeVarInt(containerId);

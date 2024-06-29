@@ -103,12 +103,12 @@ public class StorageBox extends BaseEntityBlock implements EntityBlock {
         if (stack.hasCustomHoverName()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof StorageBoxEntity) {
-                ((StorageBoxEntity)blockEntity).getDisplayName();
+                ((StorageBoxEntity) blockEntity).getDisplayName();
             }
         }
     }
 
-    private boolean hitFront (BlockState blockState, BlockHitResult hit) {
+    private boolean hitFront(BlockState blockState, BlockHitResult hit) {
         Direction side = hit.getDirection();
         return blockState.getValue(FACING) == side;
     }
@@ -118,7 +118,7 @@ public class StorageBox extends BaseEntityBlock implements EntityBlock {
         boolean isClient = level.isClientSide();
         if (!isClient) {
             if (hand == InteractionHand.OFF_HAND) return InteractionResult.SUCCESS;
-            if (!hitFront(blockState, hit))  return InteractionResult.PASS;
+            if (!hitFront(blockState, hit)) return InteractionResult.PASS;
 
             if (player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
                 BlockEntity blockEntity = level.getBlockEntity(blockPos);
@@ -200,7 +200,7 @@ public class StorageBox extends BaseEntityBlock implements EntityBlock {
                 int i = 0;
                 int j = 0;
 
-                for(ItemStack itemStack : nonNullList) {
+                for (ItemStack itemStack : nonNullList) {
                     if (!itemStack.isEmpty()) {
                         ++j;
                         if (i <= 4) {
@@ -229,6 +229,7 @@ public class StorageBox extends BaseEntityBlock implements EntityBlock {
     protected Direction getFacing(BlockState state) {
         return state.getValue(FACING);
     }
+
     public boolean getVoidUpgradeStatus(BlockState state) {
         return state.getValue(VOID_UPGRADE);
     }

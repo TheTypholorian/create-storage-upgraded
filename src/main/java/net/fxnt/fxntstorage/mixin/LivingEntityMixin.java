@@ -19,10 +19,11 @@ public class LivingEntityMixin {
     @Inject(method = "causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z", at = @At(value = "HEAD"), cancellable = true)
     private void fxnt$onCauseFallDamage(float fallDistance, float damageMultiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         if (!doMixin) return;
-        if (((Object)this) instanceof Player player) {
-            if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying()) return;
+        if (((Object) this) instanceof Player player) {
+            if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying())
+                return;
             if (!new BackPackHelper().isWearingBackPack(player)) return;
-            if(new BackPackOnBackUpgradeHandler(player).applyFallDamageUpgrade())  {
+            if (new BackPackOnBackUpgradeHandler(player).applyFallDamageUpgrade()) {
                 cir.setReturnValue(false);
                 cir.cancel();
             }

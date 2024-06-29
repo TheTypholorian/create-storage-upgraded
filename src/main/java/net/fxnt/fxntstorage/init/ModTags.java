@@ -24,6 +24,7 @@ public class ModTags {
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
         return TagKey.create(registry.key(), id);
     }
+
     public static <T> TagKey<T> createTag(Registry<T> registry, String path) {
         return optionalTag(registry, new ResourceLocation(FXNTStorage.MOD_ID, path));
     }
@@ -33,16 +34,16 @@ public class ModTags {
     }
 
     public static TagKey<Block> blockTag(String path) {
-            return createTag(BuiltInRegistries.BLOCK, path);
-        }
+        return createTag(BuiltInRegistries.BLOCK, path);
+    }
 
-        public static TagKey<Item> itemTag(String path) {
-            return createTag(BuiltInRegistries.ITEM, path);
-        }
+    public static TagKey<Item> itemTag(String path) {
+        return createTag(BuiltInRegistries.ITEM, path);
+    }
 
-        public static TagKey<Fluid> fluidTag(String path) {
-            return createTag(BuiltInRegistries.FLUID, path);
-        }
+    public static TagKey<Fluid> fluidTag(String path) {
+        return createTag(BuiltInRegistries.FLUID, path);
+    }
 
     public static TagKey<Block> forgeBlockTag(String path) {
         return forgeTag(BuiltInRegistries.BLOCK, path);

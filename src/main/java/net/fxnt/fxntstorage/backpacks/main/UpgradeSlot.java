@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 
 public class UpgradeSlot extends Slot {
     private final Level level;
+
     public UpgradeSlot(Container container, Level level, int slot, int x, int y) {
         super(container, slot, x, y);
         this.level = level;
@@ -30,7 +31,7 @@ public class UpgradeSlot extends Slot {
     @Override
     public boolean mayPlace(ItemStack stack) {
         // Prevent Inception
-        if(!BackPackEntity.filterTest(this.level, stack)) {
+        if (!BackPackEntity.filterTest(this.level, stack)) {
             return false;
         }
 

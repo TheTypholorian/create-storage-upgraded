@@ -27,8 +27,10 @@ public abstract class ItemEntityMixin {
         }
     }
 
-    @Shadow private int pickupDelay;
-    @Shadow private @Nullable UUID target;
+    @Shadow
+    private int pickupDelay;
+    @Shadow
+    private @Nullable UUID target;
     @Unique
     private final boolean doMixin = true;
 
@@ -36,9 +38,10 @@ public abstract class ItemEntityMixin {
     private void fxnt$onPlayerPickUpItem(Player player, CallbackInfo ci) {
         if (!doMixin) return;
         ItemEntity itemEntity = (ItemEntity) (Object) this;
-        if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying()) return;
+        if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying())
+            return;
         if (!new BackPackHelper().isWearingBackPack(player)) return;
-        if(new BackPackOnBackUpgradeHandler(player).applyItemPickupUpgrade(itemEntity, target, pickupDelay))  {
+        if (new BackPackOnBackUpgradeHandler(player).applyItemPickupUpgrade(itemEntity, target, pickupDelay)) {
             ci.cancel();
         }
     }

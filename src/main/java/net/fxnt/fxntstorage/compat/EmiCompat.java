@@ -11,6 +11,7 @@ public class EmiCompat implements EmiPlugin {
     private static Bounds asEmiRect(Rect2i rect) {
         return new Bounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
     }
+
     @Override
     public void register(EmiRegistry registry) {
 

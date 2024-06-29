@@ -131,11 +131,11 @@ public class BackPackEntity extends BlockEntity implements ImplementedContainer,
     public CompoundTag saveEverything(CompoundTag tag) {
 
         ListTag itemsList = new ListTag();
-        for(int i = 0; i < this.items.size(); ++i) {
+        for (int i = 0; i < this.items.size(); ++i) {
             ItemStack tagStack = this.items.get(i);
             if (!tagStack.isEmpty()) {
                 CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putByte("Slot", (byte)i);
+                compoundTag.putByte("Slot", (byte) i);
                 tagStack.save(compoundTag);
                 compoundTag.putInt("ActualCount", tagStack.getCount());
                 itemsList.add(compoundTag);
@@ -164,6 +164,7 @@ public class BackPackEntity extends BlockEntity implements ImplementedContainer,
 
         return stack;
     }
+
     public void refreshUpgrades() {
         this.upgrades.clear();
         int UPGRADE_SLOT_START_INDEX = BackPackBlock.containerSlotCount + BackPackBlock.toolSlotCount;
@@ -237,6 +238,7 @@ public class BackPackEntity extends BlockEntity implements ImplementedContainer,
         initializeSlotsForAllDirections();
         return SIDED_SLOTS.length >= 1;
     }
+
     public static boolean filterTest(Level level, ItemStack stack) {
         // Test to see if we're allowing this item into the backpack
         // Use to prevent inception, needs to be called on any backpack interaction (including quickmove / mouse interaction)
@@ -244,7 +246,9 @@ public class BackPackEntity extends BlockEntity implements ImplementedContainer,
         // Prevent inception
         return !(stack.getItem() instanceof BackPackItem);
     }
+
     private boolean initializedBlock = false;
+
     public <T extends BlockEntity> void serverTick(Level level, BlockPos blockPos, BlockEntity blockEntity) {
         if (level != null) {
             if (!level.isClientSide) {

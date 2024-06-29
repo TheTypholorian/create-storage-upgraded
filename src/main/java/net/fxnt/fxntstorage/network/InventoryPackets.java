@@ -25,6 +25,7 @@ public class InventoryPackets {
                 }
         );
     }
+
     private final int slotIndex;
     private final ItemStack itemStack;
 

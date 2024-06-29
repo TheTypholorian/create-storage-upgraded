@@ -6,6 +6,7 @@ import net.minecraft.util.StringRepresentable;
 public class EnumProperties {
     public enum StorageUsed implements StringRepresentable {
         EMPTY, HAS_ITEMS, SLOTS_FILLED, FULL;
+
         @Override
         public String getSerializedName() {
             return Lang.asId(name());

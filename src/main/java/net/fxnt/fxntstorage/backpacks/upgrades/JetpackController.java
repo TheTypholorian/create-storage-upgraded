@@ -46,7 +46,7 @@ public class JetpackController {
         }
         getJetPackFuel();
         // Check if any fuel in backpack first
-        if(jetPackFuelRemaining <= 0) {
+        if (jetPackFuelRemaining <= 0) {
             endHovering(false);
             player.setNoGravity(false);
             return;
@@ -99,7 +99,7 @@ public class JetpackController {
 
         if ((jetPackFuelRemaining < 10.0f || distanceToGround > maxAllowedHeight) && input.jumping) {
             // Prevent player going up (Slow fall speed)
-            verticalSpeed = lerp(verticalSpeed, gravity/10, 0.5);
+            verticalSpeed = lerp(verticalSpeed, gravity / 10, 0.5);
         } else if (isHovering && Math.abs(verticalSpeed) > 0.1) {
             // Slow to Hover Speed (0)
             verticalSpeed = lerp(verticalSpeed, verticalHoverSpeed, 0.5);
@@ -115,6 +115,7 @@ public class JetpackController {
         }
         player.setDeltaMovement(horizontalVelocity.x, verticalSpeed, horizontalVelocity.z);
     }
+
     private Vec3 applyMovementPhysics(Vec3 currentVelocity, Vec3 direction, double acceleration, double maxSpeed) {
         Vec3 targetVelocity = currentVelocity.add(direction.scale(acceleration));
         double speed = Math.sqrt(targetVelocity.x * targetVelocity.x + targetVelocity.z * targetVelocity.z);
@@ -133,9 +134,9 @@ public class JetpackController {
         if (player.isSprinting()) baseSpeed = defaultPlayerSprintSpeed;
         if (isHovering) baseSpeed = defaultPlayerSneakSpeed;
 
-        double horizontalSpeed = baseSpeed + baseFlySpeedBoost + (mobEffectSpeedMultiplier/10);
+        double horizontalSpeed = baseSpeed + baseFlySpeedBoost + (mobEffectSpeedMultiplier / 10);
         if (isHovering) {
-            horizontalSpeed = baseSpeed + baseHoverSpeedBoost + enchantedSpeedMultiplier + (mobEffectSpeedMultiplier/10);
+            horizontalSpeed = baseSpeed + baseHoverSpeedBoost + enchantedSpeedMultiplier + (mobEffectSpeedMultiplier / 10);
         }
         return horizontalSpeed;
     }
@@ -183,21 +184,23 @@ public class JetpackController {
         return start + factor * (end - start);
     }
 
-    private static int getDistance(Player player){
+    private static int getDistance(Player player) {
         BlockPos blockPos = player.blockPosition();
         BlockPos offset = blockPos;
         int y = player.getBlockY();
         int distance = 0;
-        for (int i = y; i >= -64; i--){
+        for (int i = y; i >= -64; i--) {
             offset = blockPos.atY(i);
-            if(!player.level().getBlockState(offset).getBlock().defaultBlockState().isAir()) break;
+            if (!player.level().getBlockState(offset).getBlock().defaultBlockState().isAir()) break;
             distance++;
         }
         return distance - 1;
     }
+
     public void deactivateHovering() {
         endHovering(true);
     }
+
     public void toggleHover() {
         if (player.onGround()) {
             deactivateHovering();
@@ -212,6 +215,7 @@ public class JetpackController {
         hoverHeight = player.getY();
         if (announce) player.displayClientMessage(Component.literal("Hovering Activated"), true);
     }
+
     public void endHovering(boolean announce) {
         isHovering = false;
         hoverHeight = 0;
@@ -224,10 +228,12 @@ public class JetpackController {
         BackPackNetworkHelper.updateJetPackFuel();
         jetPackFuelRemaining = JetpackState.getFuelLevel();
     }
+
     public void depleteJetPackFuel() {
         if (player.isCreative()) return;
         BackPackNetworkHelper.depleteJetPackFuel();
     }
+
     public class JetpackState {
         private static float fuelLevel = 0;
         private static boolean hasFlightUpgrade = false;

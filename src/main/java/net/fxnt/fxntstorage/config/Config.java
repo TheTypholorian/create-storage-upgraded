@@ -8,7 +8,9 @@ import java.nio.file.Path;
 
 public class Config {
 
-    private Config() {}
+    private Config() {
+    }
+
     public static final String GENERAL_CATEGORY = "general_settings";
     public static final String STORAGE_BOX_CATEGORY = "strorage_box_settings";
     private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();

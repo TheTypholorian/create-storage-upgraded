@@ -50,12 +50,13 @@ public class PasserBlock extends BaseEntityBlock {
         super.createBlockStateDefinition(pBuilder);
         pBuilder.add(FACING);
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
 
-    private byte hitPart (BlockState blockState, BlockHitResult hit) {
+    private byte hitPart(BlockState blockState, BlockHitResult hit) {
         Direction facing = blockState.getValue(FACING);
         if (hit.getDirection() == facing || hit.getDirection() == facing.getOpposite()) {
             return 0;
@@ -71,7 +72,8 @@ public class PasserBlock extends BaseEntityBlock {
         boolean isClient = level.isClientSide();
         if (!isClient) {
             if (hand == InteractionHand.OFF_HAND) return InteractionResult.SUCCESS;
-            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(AllTags.AllItemTags.WRENCH.tag)) return InteractionResult.PASS;
+            if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(AllTags.AllItemTags.WRENCH.tag))
+                return InteractionResult.PASS;
 
             byte hitPart = hitPart(blockState, hit);
 
@@ -79,7 +81,7 @@ public class PasserBlock extends BaseEntityBlock {
             if (hitPart == 1) {
                 // Hit top / bottom rotate horizontally
                 direction = switch (blockState.getValue(FACING)) {
-                    case NORTH-> Direction.EAST;
+                    case NORTH -> Direction.EAST;
                     case EAST -> Direction.SOUTH;
                     case SOUTH -> Direction.WEST;
                     case WEST -> Direction.NORTH;

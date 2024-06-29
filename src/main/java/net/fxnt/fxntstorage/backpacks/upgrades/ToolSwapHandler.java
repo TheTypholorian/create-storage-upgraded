@@ -47,6 +47,7 @@ public class ToolSwapHandler {
         public final int slot;
         public final double speed;
         public final boolean silkTouch;
+
         public ToolInfo(ItemStack itemStack, int slot, double speed, boolean silkTouch) {
             this.itemStack = itemStack;
             this.slot = slot;
@@ -59,6 +60,7 @@ public class ToolSwapHandler {
         public final ItemStack itemStack;
         public final int slot;
         public final double damage;
+
         public WeaponInfo(ItemStack itemStack, int slot, double damage) {
             this.itemStack = itemStack;
             this.slot = slot;
@@ -252,10 +254,12 @@ public class ToolSwapHandler {
             }
         });
     }
+
     public boolean requiresSilkTouch(BlockState blockState) {
         Block block = blockState.getBlock();
         return block == Blocks.GLASS || block == Blocks.DEAD_BUSH || block == Blocks.ICE || block == Blocks.PACKED_ICE || block == Blocks.BLUE_ICE || block == Blocks.BEE_NEST;
     }
+
     public boolean prefersSilkTouch(BlockState blockState) {
         Block block = blockState.getBlock();
         return block == Blocks.GRASS_BLOCK || block == Blocks.MYCELIUM || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.GRAVEL

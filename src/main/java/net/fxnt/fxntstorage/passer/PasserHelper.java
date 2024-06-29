@@ -24,6 +24,7 @@ public class PasserHelper {
         }
         return null;
     }
+
     public static boolean passItems(Level level, Storage<ItemVariant> srcStorage, Storage<ItemVariant> dstStorage, Direction facing, long amount, boolean fixedAmount, ItemVariant filterItem) {
 
         try (Transaction transaction = Transaction.openOuter()) {

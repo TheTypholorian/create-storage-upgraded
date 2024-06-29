@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 
 public class ToolSlot extends Slot {
     private final Level level;
+
     public ToolSlot(Container container, Level level, int slot, int x, int y) {
         super(container, slot, x, y);
         this.level = level;

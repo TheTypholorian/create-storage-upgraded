@@ -42,6 +42,7 @@ public class BackPackBlock extends BaseEntityBlock implements EntityBlock {
     public static final int toolSlotCount = 24;
     public static final int upgradeSlotCount = 6;
     public static final int totalSlotCount = containerSlotCount + toolSlotCount + upgradeSlotCount;
+
     public BackPackBlock(FabricBlockSettings properties, String title, int maxStackSize) {
         super(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque().notSolid().breakInstantly().sound(SoundType.WOOL));
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
@@ -52,12 +53,15 @@ public class BackPackBlock extends BaseEntityBlock implements EntityBlock {
     public static int getSlotCount() {
         return totalSlotCount;
     }
+
     public static int getContainerSlotCount() {
         return containerSlotCount;
     }
+
     public static int getToolSlotCount() {
         return toolSlotCount;
     }
+
     public static int getUpgradeSlotCount() {
         return upgradeSlotCount;
     }
@@ -104,7 +108,7 @@ public class BackPackBlock extends BaseEntityBlock implements EntityBlock {
         if (stack.hasCustomHoverName()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof BackPackEntity) {
-                ((BackPackEntity)blockEntity).setCustomName(stack.getHoverName());
+                ((BackPackEntity) blockEntity).setCustomName(stack.getHoverName());
             }
         }
 

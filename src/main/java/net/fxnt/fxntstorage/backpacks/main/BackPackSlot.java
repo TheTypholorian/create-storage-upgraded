@@ -12,6 +12,7 @@ public class BackPackSlot extends Slot {
 
     private final Container container;
     private final Level level;
+
     public BackPackSlot(Container container, Level level, int slot, int x, int y) {
         super(container, slot, x, y);
         this.container = container;

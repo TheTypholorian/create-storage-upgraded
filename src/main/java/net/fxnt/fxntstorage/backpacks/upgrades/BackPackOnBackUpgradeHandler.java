@@ -29,6 +29,7 @@ public class BackPackOnBackUpgradeHandler {
     private final BackPackHelper helper;
     private final int magnetUpgradeRange = Config.BACKPACK_MAGNET_RANGE.get();
     private final ItemStack itemStack;
+
     public BackPackOnBackUpgradeHandler(Player player) {
         this.player = player;
         this.helper = new BackPackHelper();
@@ -75,7 +76,8 @@ public class BackPackOnBackUpgradeHandler {
     // SERVER SIDE
     public boolean applyItemPickupUpgrade(ItemEntity itemEntity, UUID target, int pickupDelay) {
 
-        if (this.itemStack.isEmpty() || this.player.level().isClientSide || !hasUpgrade(Util.ITEMPICKUP_UPGRADE)  || hasUpgrade(Util.MAGNET_UPGRADE)) return false;
+        if (this.itemStack.isEmpty() || this.player.level().isClientSide || !hasUpgrade(Util.ITEMPICKUP_UPGRADE) || hasUpgrade(Util.MAGNET_UPGRADE))
+            return false;
         ItemStack itemStack = itemEntity.getItem();
         Item item = itemStack.getItem();
         int i = itemStack.getCount();
@@ -135,6 +137,7 @@ public class BackPackOnBackUpgradeHandler {
         refillHand(this.player.getMainHandItem(), false);
         refillHand(this.player.getOffhandItem(), true);
     }
+
     public void refillHand(ItemStack handItem, boolean isOffHand) {
         if (handItem.isEmpty()) return;
         boolean success;
@@ -149,6 +152,7 @@ public class BackPackOnBackUpgradeHandler {
             }
         }
     }
+
     public boolean refillMatchingItem(ItemStack itemStack, int requiredItems, Container container, int startIndex, int endIndex, int ignoreSlot) {
         int amountToPlace = requiredItems;
         for (int i = startIndex; i < endIndex; i++) {
@@ -179,6 +183,7 @@ public class BackPackOnBackUpgradeHandler {
         ToolSwapHandler toolSwapHandler = new ToolSwapHandler(player, getContainer(), Util.TOOL_SLOT_START_RANGE, Util.TOOL_SLOT_END_RANGE);
         toolSwapHandler.doToolSwap(level, pos, null, "block");
     }
+
     public void fromAttackEntityEvent(Player player, Level level, InteractionHand hand, LivingEntity entity) {
         if (this.itemStack.isEmpty() || hand != InteractionHand.OFF_HAND && player.isSpectator() || level.isClientSide || !player.isAlive()
                 || player.isSleeping() || player.isDeadOrDying() || !hasUpgrade(Util.TOOLSWAP_UPGRADE)) return;

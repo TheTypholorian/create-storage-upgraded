@@ -63,7 +63,8 @@ public class BackPackPackets {
                                 container = new BackPackHelper().getBackPackContainerFromBlockPos(player.level(), blockPos);
                                 break;
                             }
-                            default: throw new RuntimeException("Backpack Type is wrong");
+                            default:
+                                throw new RuntimeException("Backpack Type is wrong");
                         }
                         container.setItem(slot, itemStack);
                     });
@@ -74,7 +75,8 @@ public class BackPackPackets {
                 (server, player, handler, buf, responseSender) -> {
                     byte key = buf.readByte();
                     server.execute(() -> {
-                        if (key == Util.OPEN_BACKPACK) BackPackHandler.openBackpackFromInventory(player, Util.BACKPACK_ON_BACK);
+                        if (key == Util.OPEN_BACKPACK)
+                            BackPackHandler.openBackpackFromInventory(player, Util.BACKPACK_ON_BACK);
                         if (key == Util.TOGGLE_HOVER) new JetpackController(player).toggleHover();
                     });
                 }
@@ -130,7 +132,7 @@ public class BackPackPackets {
                 container = backPackMenu.container;
             } else {
                 ItemStack itemStack = helper.getWornBackPackStack(player);
-                container =  new BackPackContainer(itemStack);
+                container = new BackPackContainer(itemStack);
             }
 
             if (container == null) return 0.0d;
@@ -155,12 +157,12 @@ public class BackPackPackets {
                 container = backPackMenu.container;
             } else {
                 ItemStack itemStack = helper.getWornBackPackStack(player);
-                container =  new BackPackContainer(itemStack);
+                container = new BackPackContainer(itemStack);
             }
             if (container == null) return;
 
 
-            float fuelDepleteAmount = (float)(double) Config.JETPACK_FUEL_DEPLETION_AMOUNT.get();
+            float fuelDepleteAmount = (float) (double) Config.JETPACK_FUEL_DEPLETION_AMOUNT.get();
             ItemStack firstFuelSource = ItemStack.EMPTY;
             float totalAirSupply = 0.0f;
             for (int i = 0; i < container.getContainerSize(); i++) {

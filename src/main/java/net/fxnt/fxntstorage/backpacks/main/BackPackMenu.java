@@ -53,7 +53,7 @@ public class BackPackMenu extends AbstractContainerMenu {
         if (backPackType == Util.BACKPACK_AS_BLOCK) {
             this.blockPos = ((BackPackEntity) container).getBlockPos();
         } else {
-            this.blockPos = new BlockPos(0,0,0);
+            this.blockPos = new BlockPos(0, 0, 0);
         }
     }
 
@@ -99,7 +99,7 @@ public class BackPackMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(@NotNull Player player)  {
+    public boolean stillValid(@NotNull Player player) {
         if (backPackType == Util.BACKPACK_IN_HAND) {
             ItemStack selectedStack = player.getInventory().getSelected();
             if (!(selectedStack.getItem() instanceof BackPackItem)) return false;
@@ -124,9 +124,11 @@ public class BackPackMenu extends AbstractContainerMenu {
     public Slot getSlot(int slotIndex) {
         return slots.get(slotIndex);
     }
+
     public Slot getPlayerSlot(int slotIndex) {
         return slots.get(getSlotsSize() - 36 + slotIndex);
     }
+
     public Slot getHotbarSlot(int slotIndex) {
         return slots.get(getSlotsSize() - 36 + 27 + slotIndex);
     }
@@ -182,7 +184,7 @@ public class BackPackMenu extends AbstractContainerMenu {
             if (isUpgradeItem(slotItem)) {
                 // Are there any free upgrade slots
                 for (int i = Util.UPGRADE_SLOT_START_RANGE; i < Util.UPGRADE_SLOT_END_RANGE; i++) {
-                    if(this.slots.get(i).getItem().isEmpty()) {
+                    if (this.slots.get(i).getItem().isEmpty()) {
                         this.slots.get(i).safeInsert(slotItem);
                         return ItemStack.EMPTY;
                     }
@@ -197,7 +199,7 @@ public class BackPackMenu extends AbstractContainerMenu {
             if (isToolItem(slotItem)) {
                 // Are there any free tool ade slots
                 for (int i = Util.TOOL_SLOT_START_RANGE; i < Util.TOOL_SLOT_END_RANGE; i++) {
-                    if(this.slots.get(i).getItem().isEmpty()) {
+                    if (this.slots.get(i).getItem().isEmpty()) {
                         this.slots.get(i).safeInsert(slotItem);
                         return ItemStack.EMPTY;
                     }
@@ -212,7 +214,7 @@ public class BackPackMenu extends AbstractContainerMenu {
             ItemStack slotStack = slot.getItem();
 
             // Check filter against items before proceeding
-            if(!BackPackEntity.filterTest(player.level(), slotStack)) {
+            if (!BackPackEntity.filterTest(player.level(), slotStack)) {
                 return tempStack;
             }
             tempStack = slotStack.copy();
@@ -247,7 +249,7 @@ public class BackPackMenu extends AbstractContainerMenu {
         }
 
         if ((!fromContainer && !newStack.isDamageableItem() && !newStack.hasTag() && !newStack.hasCustomHoverName() && !newStack.isBarVisible() && !newStack.isBarVisible()) || (fromContainer && newStack.isStackable())) {
-            while(!newStack.isEmpty() && (reverseDirection ? i >= startIndex : i < endIndex)) {
+            while (!newStack.isEmpty() && (reverseDirection ? i >= startIndex : i < endIndex)) {
                 Slot slot = this.slots.get(i);
                 ItemStack slotStack = slot.getItem();
                 if (!slotStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, slotStack)) {
@@ -289,7 +291,7 @@ public class BackPackMenu extends AbstractContainerMenu {
                 i = startIndex;
             }
 
-            while(reverseDirection ? i >= startIndex : i < endIndex) {
+            while (reverseDirection ? i >= startIndex : i < endIndex) {
                 Slot slot = this.slots.get(i);
                 ItemStack slotStack = slot.getItem();
 
@@ -388,7 +390,7 @@ public class BackPackMenu extends AbstractContainerMenu {
 
                     int k = this.getCarried().getCount();
 
-                    for(Slot slot2 : this.quickcraftSlots) {
+                    for (Slot slot2 : this.quickcraftSlots) {
                         ItemStack newCarriedItemStack = this.getCarried();
                         if (slot2 != null
                                 && fxnt$canItemQuickReplace(slot2, newCarriedItemStack, true)
@@ -452,12 +454,12 @@ public class BackPackMenu extends AbstractContainerMenu {
                     if (isUpgradeItem(itemStack)) {
                         slotRangeStart = Util.UPGRADE_SLOT_START_RANGE;
                         slotRangeEnd = Util.UPGRADE_SLOT_END_RANGE;
-                    } else if(isToolItem((itemStack))) {
+                    } else if (isToolItem((itemStack))) {
                         slotRangeStart = Util.TOOL_SLOT_START_RANGE;
                         slotRangeEnd = Util.TOOL_SLOT_END_RANGE;
                     }
 
-                    for(int i = slotRangeStart; i < slotRangeEnd; ++i) {
+                    for (int i = slotRangeStart; i < slotRangeEnd; ++i) {
                         if (container.getItem(i).isEmpty()) {
                             freeContainerSlot = i;
                             break;
@@ -623,9 +625,9 @@ public class BackPackMenu extends AbstractContainerMenu {
                 int k = button == 0 ? 0 : this.slots.size() - 1;
                 int p = button == 0 ? 1 : -1;
 
-                for(int o = 0; o < 2; ++o) {
+                for (int o = 0; o < 2; ++o) {
                     //FXNTStorage.LOGGER.info("Inventory Stack Max Size {}", inventoryItemStack.getMaxStackSize());
-                    for(int q = k; q >= 0 && q < this.slots.size() && inventoryItemStack.getCount() < inventoryItemStack.getMaxStackSize(); q += p) {
+                    for (int q = k; q >= 0 && q < this.slots.size() && inventoryItemStack.getCount() < inventoryItemStack.getMaxStackSize(); q += p) {
                         Slot slot4 = this.slots.get(q);
                         if (slot4.hasItem() && this.fxnt$canItemQuickReplace(slot4, inventoryItemStack, true) && slot4.mayPickup(player) && this.canTakeItemForPickAll(inventoryItemStack, slot4)) {
                             ItemStack itemStack5 = slot4.getItem();
@@ -648,6 +650,7 @@ public class BackPackMenu extends AbstractContainerMenu {
         this.quickcraftSlots.clear();
         //FXNTStorage.LOGGER.info("Reset Quick Craft {} {}", quickcraftStatus, quickcraftSlots.toString());
     }
+
     private boolean tryItemClickBehaviourOverride(Player player, ClickAction action, Slot slot, ItemStack clickedItem, ItemStack carriedItem) {
         FeatureFlagSet featureFlagSet = player.level().enabledFeatures();
         if (carriedItem.isItemEnabled(featureFlagSet) && carriedItem.overrideStackedOnOther(slot, action, player)) {

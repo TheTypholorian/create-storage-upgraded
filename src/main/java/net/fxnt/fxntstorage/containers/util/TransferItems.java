@@ -41,6 +41,7 @@ public class TransferItems {
     public static boolean canTakeItemFromContainer(Container srcContainer, Container dstContainer, ItemStack stack, int slot) {
         return dstContainer.canTakeItem(srcContainer, slot, stack);
     }
+
     public static boolean canPlaceItemInContainer(Container dstContainer, ItemStack stack, int slot) {
         return dstContainer.canPlaceItem(slot, stack);
     }
@@ -61,7 +62,7 @@ public class TransferItems {
         int i;
         int size = dstContainer.getContainerSize();
         if (!toPlayer) {
-            for(i = 0; i < size && !stack.isEmpty(); ++i) {
+            for (i = 0; i < size && !stack.isEmpty(); ++i) {
                 stack = tryMoveInItem(dstContainer, stack, i);
             }
         } else {
@@ -70,7 +71,7 @@ public class TransferItems {
                 int selectedSlot = ((Inventory) dstContainer).selected;
                 stack = tryMoveInItem(dstContainer, stack, selectedSlot);
             }
-            for(i = 0; i < 36 && !stack.isEmpty(); ++i) {
+            for (i = 0; i < 36 && !stack.isEmpty(); ++i) {
                 stack = tryMoveInItem(dstContainer, stack, i);
             }
         }

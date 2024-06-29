@@ -21,6 +21,7 @@ public class UpgradeItem extends Item {
     private final String name;
 
     private static final int maxLength = 40;
+
     public UpgradeItem(FabricItemSettings properties, String name) {
         super(properties.stacksTo(64));
         this.name = name;
@@ -83,6 +84,7 @@ public class UpgradeItem extends Item {
             }
         }
     }
+
     private void addFlightUpgradeDetails(List<Component> tooltipComponents, String upgradeName) {
         List<String> text = getUpgradeText(upgradeName, true);
         for (String line : text) {

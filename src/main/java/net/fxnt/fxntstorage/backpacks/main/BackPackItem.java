@@ -30,13 +30,15 @@ import java.util.List;
 
 public class BackPackItem extends BlockItem implements EquipmentItem {
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     @Deprecated
     private final Block block;
 
-     public BackPackItem(Block block, FabricItemSettings properties) {
+    public BackPackItem(Block block, FabricItemSettings properties) {
         super(block, properties.stacksTo(1).fireResistant());
-         this.block = block;
+        this.block = block;
     }
 
     @Override
@@ -113,7 +115,7 @@ public class BackPackItem extends BlockItem implements EquipmentItem {
                 int i = 0;
                 int j = 0;
 
-                for(ItemStack itemStack : itemsList) {
+                for (ItemStack itemStack : itemsList) {
                     if (!itemStack.isEmpty()) {
                         ++j;
                         if (i <= 4) {
@@ -140,7 +142,7 @@ public class BackPackItem extends BlockItem implements EquipmentItem {
                 if (!upgradesList.isEmpty()) {
                     tooltipComponents.add(Component.literal("Upgrades:"));
                 }
-                for(String upgradeName : upgradesList) {
+                for (String upgradeName : upgradesList) {
                     upgradeName = upgradeName.replace("back_pack_", "").replace("_", " ");
                     upgradeName = "+ " + upgradeName.substring(0, 1).toUpperCase() + upgradeName.substring(1);
                     tooltipComponents.add(Component.literal(upgradeName));

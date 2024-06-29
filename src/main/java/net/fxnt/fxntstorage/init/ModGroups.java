@@ -41,7 +41,8 @@ public class ModGroups {
                         entries.accept(ModItems.BACK_PACK_FALLDAMAGE_UPGRADE);
 
                     }).build());
-    public static void register(){
+
+    public static void register() {
         FXNTStorage.LOGGER.info("Registering Creative Tab Group for " + FXNTStorage.NAME);
     }
 

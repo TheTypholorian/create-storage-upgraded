@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public class ModBlocks {
 
     public static final Block STORAGE_BOX = registerBlock("storage_box",
-        new StorageBox(FabricBlockSettings.create(), Util.IRON_STORAGE_BOX_SIZE, "industrial_iron_storage_box"), true);
+            new StorageBox(FabricBlockSettings.create(), Util.IRON_STORAGE_BOX_SIZE, "industrial_iron_storage_box"), true);
     public static final Block ANDESITE_STORAGE_BOX = registerBlock("andesite_storage_box",
             new StorageBox(FabricBlockSettings.create(), Util.ANDESITE_STORAGE_BOX_SIZE, "andesite_storage_box"), true);
     public static final Block COPPER_STORAGE_BOX = registerBlock("copper_storage_box",
@@ -37,15 +37,15 @@ public class ModBlocks {
     public static final Block HARDENED_STORAGE_BOX = registerBlock("hardened_storage_box",
             new StorageBox(FabricBlockSettings.create(), Util.HARDENED_STORAGE_BOX_SIZE, "hardened_storage_box"), true);
     public static final Block BACK_PACK = registerBlock("back_pack",
-                new BackPackBlock(FabricBlockSettings.create(), "back_pack", Util.IRON_BACKPACK_STACK_SIZE), false);
+            new BackPackBlock(FabricBlockSettings.create(), "back_pack", Util.IRON_BACKPACK_STACK_SIZE), false);
     public static final Block ANDESITE_BACK_PACK = registerBlock("andesite_back_pack",
-                new BackPackBlock(FabricBlockSettings.create(), "andesite_back_pack", Util.ANDESITE_BACKPACK_STACK_SIZE), false);
+            new BackPackBlock(FabricBlockSettings.create(), "andesite_back_pack", Util.ANDESITE_BACKPACK_STACK_SIZE), false);
     public static final Block COPPER_BACK_PACK = registerBlock("copper_back_pack",
-                new BackPackBlock(FabricBlockSettings.create(), "copper_back_pack", Util.COPPER_BACKPACK_STACK_SIZE), false);
+            new BackPackBlock(FabricBlockSettings.create(), "copper_back_pack", Util.COPPER_BACKPACK_STACK_SIZE), false);
     public static final Block BRASS_BACK_PACK = registerBlock("brass_back_pack",
-                new BackPackBlock(FabricBlockSettings.create(), "brass_back_pack", Util.BRASS_BACKPACK_STACK_SIZE), false);
+            new BackPackBlock(FabricBlockSettings.create(), "brass_back_pack", Util.BRASS_BACKPACK_STACK_SIZE), false);
     public static final Block HARDENED_BACK_PACK = registerBlock("hardened_back_pack",
-                new BackPackBlock(FabricBlockSettings.create(), "hardened_back_pack", Util.HARDENED_BACKPACK_STACK_SIZE), false);
+            new BackPackBlock(FabricBlockSettings.create(), "hardened_back_pack", Util.HARDENED_BACKPACK_STACK_SIZE), false);
 
     public static final Block PASSER_BLOCK = registerBlock("passer_block",
             new PasserBlock(FabricBlockSettings.create(), false), true);
@@ -57,16 +57,16 @@ public class ModBlocks {
             new BackPackItem(BACK_PACK, new FabricItemSettings()));
 
     public static final Item ANDESITE_BACK_PACK_ITEM = registerBlockItem("andesite_back_pack",
-                new BackPackItem(ANDESITE_BACK_PACK, new FabricItemSettings()));
+            new BackPackItem(ANDESITE_BACK_PACK, new FabricItemSettings()));
 
     public static final Item COPPER_BACK_PACK_ITEM = registerBlockItem("copper_back_pack",
-                new BackPackItem(COPPER_BACK_PACK, new FabricItemSettings()));
+            new BackPackItem(COPPER_BACK_PACK, new FabricItemSettings()));
 
     public static final Item BRASS_BACK_PACK_ITEM = registerBlockItem("brass_back_pack",
-                new BackPackItem(BRASS_BACK_PACK, new FabricItemSettings()));
+            new BackPackItem(BRASS_BACK_PACK, new FabricItemSettings()));
 
     public static final Item HARDENED_BACK_PACK_ITEM = registerBlockItem("hardened_back_pack",
-                new BackPackItem(HARDENED_BACK_PACK, new FabricItemSettings().fireproof()));
+            new BackPackItem(HARDENED_BACK_PACK, new FabricItemSettings().fireproof()));
 
     // ENTITIES
     public static final BlockEntityType<StorageBoxEntity> STORAGE_BOX_ENTITY =
@@ -82,14 +82,17 @@ public class ModBlocks {
         if (autoRegisterItem) autoRegisterBlockItem(name, block);
         return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(FXNTStorage.MOD_ID, name), block);
     }
+
     private static <T extends BlockEntity> BlockEntityType<T> registerBlockEntity(String key, BlockEntityType.Builder<T> builder) {
         Type<?> type = net.minecraft.Util.fetchChoiceType(References.BLOCK_ENTITY, key);
         return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, key, builder.build(type));
     }
+
     private static Item autoRegisterBlockItem(String name, Block block) {
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(FXNTStorage.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
     }
+
     private static Item registerBlockItem(String name, Item item) {
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(FXNTStorage.MOD_ID, name), item);
     }

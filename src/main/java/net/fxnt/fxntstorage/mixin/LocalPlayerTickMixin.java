@@ -21,7 +21,8 @@ public class LocalPlayerTickMixin {
         boolean doFlight = false;
 
         LocalPlayer player = (LocalPlayer) (Object) this;
-        if (player == null || player.isSpectator() || !player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying()) return;
+        if (player == null || player.isSpectator() || !player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying())
+            return;
 
         BackPackNetworkHelper.checkHasFlightUpgrade();
         boolean hasFlightUpgrade = JetpackController.JetpackState.checkHasFlightUpgrade();

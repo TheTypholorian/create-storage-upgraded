@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class BackPackRecipe extends ShapedRecipe {
 
-        private ItemStack craftingStack;
+    private ItemStack craftingStack;
 
     public BackPackRecipe(ResourceLocation id, String group, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result) {
         super(id, group, CraftingBookCategory.MISC, width, height, recipeItems, result);
@@ -50,7 +50,7 @@ public class BackPackRecipe extends ShapedRecipe {
 
         ItemStack craftedStack = super.getResultItem(registryAccess);
         if (craftingStack == null) return craftedStack;
-        if(craftingStack.hasTag()) {
+        if (craftingStack.hasTag()) {
 
             craftedStack.setTag(craftingStack.getTag());
             CompoundTag entityTag = craftedStack.getOrCreateTagElement("BlockEntityTag");

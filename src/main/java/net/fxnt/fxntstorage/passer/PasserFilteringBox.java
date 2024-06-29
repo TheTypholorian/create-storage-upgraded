@@ -20,7 +20,8 @@ public class PasserFilteringBox extends ValueBoxTransform.Sided {
         float horizontalAngle = AngleHelper.horizontalAngle(side);
         Vec3 location = Vec3.ZERO;
         return switch (facing) {
-            case DOWN -> VecHelper.rotateCentered(VecHelper.voxelSpace(8f, 12f, 12.5f), horizontalAngle, Direction.Axis.Y);
+            case DOWN ->
+                    VecHelper.rotateCentered(VecHelper.voxelSpace(8f, 12f, 12.5f), horizontalAngle, Direction.Axis.Y);
             case UP -> VecHelper.rotateCentered(VecHelper.voxelSpace(8f, 4f, 12.5f), horizontalAngle, Direction.Axis.Y);
             case NORTH -> switch (side) {
                 case UP -> VecHelper.voxelSpace(8f, 12.5f, 12f);

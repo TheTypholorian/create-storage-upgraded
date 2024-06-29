@@ -26,7 +26,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
     private final int containerSlots = menu.getContainerSize();
     private final int containerColumns = 12;
     private int containerRows = 5;
-    private final int totalRows = (int) Math.ceil((double) containerSlots/containerColumns);
+    private final int totalRows = (int) Math.ceil((double) containerSlots / containerColumns);
     private final int containerSlotsMinX = 29;
     private final int containerSlotsMaxX = containerSlotsMinX + (Util.SLOT_SIZE * containerColumns);
     private final int containerSlotsMinZ = 17;
@@ -57,10 +57,10 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
 
     private int containerExclusionZoneMinX, containerExclusionZoneMaxX, containerExclusionZoneMinZ, containerExclusionZoneMaxZ, containerExclusionZoneWidth, containerExclusionZoneHeight;
     private int inventoryExclusionZoneMinX, inventoryExclusionZoneMaxX, inventoryExclusionZoneMinZ, inventoryExclusionZoneMaxZ, inventoryExclusionZoneWidth, inventoryExclusionZoneHeight;
-    private final ResourceLocation guiTexture5 = new ResourceLocation(FXNTStorage.MOD_ID,  "textures/gui/container/storage_box_screen_5.png");
-    private final ResourceLocation guiTexture7 = new ResourceLocation(FXNTStorage.MOD_ID,  "textures/gui/container/storage_box_screen_7.png");
-    private final ResourceLocation guiTexture9 = new ResourceLocation(FXNTStorage.MOD_ID,  "textures/gui/container/storage_box_screen_9.png");
-    private final ResourceLocation guiTexture11 = new ResourceLocation(FXNTStorage.MOD_ID,  "textures/gui/container/storage_box_screen_11.png");
+    private final ResourceLocation guiTexture5 = new ResourceLocation(FXNTStorage.MOD_ID, "textures/gui/container/storage_box_screen_5.png");
+    private final ResourceLocation guiTexture7 = new ResourceLocation(FXNTStorage.MOD_ID, "textures/gui/container/storage_box_screen_7.png");
+    private final ResourceLocation guiTexture9 = new ResourceLocation(FXNTStorage.MOD_ID, "textures/gui/container/storage_box_screen_9.png");
+    private final ResourceLocation guiTexture11 = new ResourceLocation(FXNTStorage.MOD_ID, "textures/gui/container/storage_box_screen_11.png");
     private final int guiTexture5Height = 205;
     private final int guiTexture5Rows = 5;
     private final int guiTexture7Height = 241;
@@ -79,6 +79,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
     public static StorageBoxScreen createScreen(StorageBoxMenu menu, Inventory playerInventory, Component title) {
         return new StorageBoxScreen(menu, playerInventory, title);
     }
+
     public StorageBoxScreen(StorageBoxMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
         container = menu.getInventory();
@@ -161,7 +162,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
             int scrollSlotYOffset = y >= containerRows ? -2000 : yOffset;
 
             for (int x = 0; x < containerColumns; x++) {
-                int xOffset = containerSlotsMinX + (x  * Util.SLOT_SIZE) + 1;
+                int xOffset = containerSlotsMinX + (x * Util.SLOT_SIZE) + 1;
                 Slot slot = menu.getSlot(index);
                 slot.x = xOffset;
                 slot.y = scrollSlotYOffset;
@@ -174,7 +175,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
         for (int y = 0; y < 3; y++) {
             int yOffset = inventorySlotsMinZ + (y * Util.SLOT_SIZE) + 1;
             for (int x = 0; x < 9; x++) {
-                int xOffset = inventorySlotsMinX + (x  * Util.SLOT_SIZE) + 1;
+                int xOffset = inventorySlotsMinX + (x * Util.SLOT_SIZE) + 1;
                 Slot slot = menu.getPlayerSlot(index);
                 slot.x = xOffset;
                 slot.y = yOffset;
@@ -184,7 +185,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
 
         index = 0;
         for (int x = 0; x < 9; x++) {
-            int xOffset = hotbarSlotsMinX + (x  * Util.SLOT_SIZE) + 1;
+            int xOffset = hotbarSlotsMinX + (x * Util.SLOT_SIZE) + 1;
             Slot slot = menu.getHotbarSlot(index);
             slot.x = xOffset;
             slot.y = hotbarSlotsMinZ + 1;
@@ -211,7 +212,7 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
     @Override
     protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
         graphics.drawString(font, title, 30, 6, 0x404040, false);
-        graphics.drawString(font, playerInventoryTitle, inventorySlotsMinX, inventorySlotsMinZ-inventoryTextOffset, 0x404040, false);
+        graphics.drawString(font, playerInventoryTitle, inventorySlotsMinX, inventorySlotsMinZ - inventoryTextOffset, 0x404040, false);
     }
 
 
@@ -296,16 +297,20 @@ public class StorageBoxScreen extends AbstractContainerScreen<StorageBoxMenu> {
             menu.slots.get(index).y = yOffset;
         }
     }
+
     private void setTopRowAndMoveThumb(int oldTopRow, int newTopRow) {
         this.setTopRow(oldTopRow, newTopRow);
         this.snapThumbToGradation();
     }
+
     private boolean isMouseOverScrollArea(double mouseX, double mouseY) {
         return mouseX >= leftPos + containerSlotsMinX && mouseX <= leftPos + scrollBarMaxX && mouseY >= topPos + containerSlotsMinZ && mouseY <= topPos + scrollBarMaxZ;
     }
+
     private boolean isMouseOverScrollBar(double mouseX, double mouseY) {
         return mouseX >= leftPos + scrollBarMinX && mouseX <= leftPos + scrollBarMaxX && mouseY >= topPos + scrollBarMinZ && mouseY <= topPos + scrollBarMaxZ;
     }
+
     private boolean isMouseOverScrollThumb(double mouseX, double mouseY) {
         return mouseX >= leftPos + scrollBarMinX && mouseX <= leftPos + scrollBarMaxX && mouseY >= getScrollThumbY() && mouseY <= getScrollThumbY() + scrollThumbHeight;
     }

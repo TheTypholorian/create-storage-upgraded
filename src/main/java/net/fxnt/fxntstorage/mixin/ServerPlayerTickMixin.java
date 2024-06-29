@@ -26,7 +26,8 @@ public abstract class ServerPlayerTickMixin {
     public void fxnt$onTick(CallbackInfo info) {
         if (!doMixin) return;
         ServerPlayer player = (ServerPlayer) (Object) this;
-        if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying()) return;
+        if (player == null || player.isSpectator() || player.level().isClientSide || !player.isAlive() || player.isSleeping() || player.isDeadOrDying())
+            return;
         if (!new BackPackHelper().isWearingBackPack(player)) {
             mediumTick = 0;
             slowTick = 0;

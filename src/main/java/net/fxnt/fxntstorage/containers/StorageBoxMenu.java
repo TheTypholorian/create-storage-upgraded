@@ -27,6 +27,7 @@ public class StorageBoxMenu extends AbstractContainerMenu {
         this(containerId, playerInventory, playerInventory.player.level().getBlockEntity(buf.readBlockPos()),
                 new SimpleContainerData(buf.readInt()));
     }
+
     public StorageBoxMenu(int containerId, Inventory playerInventory, BlockEntity blockEntity, ContainerData simpleContainerData) {
         super(ModMenuTypes.STORAGE_BOX_MENU, containerId);
         this.player = playerInventory.player;
@@ -69,7 +70,7 @@ public class StorageBoxMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player player)  {
+    public boolean stillValid(Player player) {
         return this.container.stillValid(player);
     }
 
@@ -82,15 +83,19 @@ public class StorageBoxMenu extends AbstractContainerMenu {
     public Container getInventory() {
         return this.container;
     }
+
     public int getSlotsSize() {
         return slots.size();
     }
+
     public int getContainerSize() {
         return this.slotCount;
     }
+
     public Slot getPlayerSlot(int slotIndex) {
         return slots.get(getSlotsSize() - 36 + slotIndex);
     }
+
     public Slot getHotbarSlot(int slotIndex) {
         return slots.get(getSlotsSize() - 36 + 27 + slotIndex);
     }
@@ -107,7 +112,7 @@ public class StorageBoxMenu extends AbstractContainerMenu {
         Slot slot = slots.get(index);
         if (slot.hasItem()) {
             ItemStack newStack = slot.getItem();
-            if(!filterTest(newStack)) {
+            if (!filterTest(newStack)) {
                 return originalStack;
             }
             originalStack = newStack.copy();

@@ -21,10 +21,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
 
-    @Shadow @Final private PoseStack pose;
-    @Shadow @Final private Minecraft minecraft;
+    @Shadow
+    @Final
+    private PoseStack pose;
+    @Shadow
+    @Final
+    private Minecraft minecraft;
 
-    @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;IILjava/lang/String;)V", at = @At("HEAD"), cancellable = true)
     public void fxnt$renderItemDecorations(Font font, ItemStack stack, int x, int y, @Nullable String text, CallbackInfo ci) {
 
         GuiGraphics guiGraphics = (GuiGraphics) (Object) this;

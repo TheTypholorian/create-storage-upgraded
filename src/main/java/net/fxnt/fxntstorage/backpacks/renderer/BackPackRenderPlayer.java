@@ -52,7 +52,7 @@ public class BackPackRenderPlayer extends RenderLayer<AbstractClientPlayer, Huma
 
         poseStack.pushPose();
 
-        if(livingEntity.isShiftKeyDown()) {
+        if (livingEntity.isShiftKeyDown()) {
             poseStack.mulPose(Axis.XP.rotationDegrees(50f));
             poseStack.translate(0f, 0.0f, -0.60f);
         }

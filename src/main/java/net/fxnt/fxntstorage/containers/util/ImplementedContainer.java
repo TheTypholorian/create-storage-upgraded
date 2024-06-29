@@ -62,9 +62,9 @@ public interface ImplementedContainer extends WorldlyContainer {
      *
      * <p>The default implementation returns true.
      *
-     * @param slot the slot
+     * @param slot  the slot
      * @param stack the stack
-     * @param side the side
+     * @param side  the side
      * @return true if the stack can be inserted
      */
     @Override
@@ -77,9 +77,9 @@ public interface ImplementedContainer extends WorldlyContainer {
      *
      * <p>The default implementation returns true.
      *
-     * @param slot the slot
+     * @param slot  the slot
      * @param stack the stack
-     * @param side the side
+     * @param side  the side
      * @return true if the stack can be extracted
      */
     @Override
@@ -133,7 +133,7 @@ public interface ImplementedContainer extends WorldlyContainer {
      * <p>(default implementation) If there are less items in the slot than what are requested,
      * takes all items in that slot.
      *
-     * @param slot the slot
+     * @param slot  the slot
      * @param count the item count
      * @return a stack
      */
@@ -164,7 +164,7 @@ public interface ImplementedContainer extends WorldlyContainer {
      * <p>If the stack is too big for this inventory,
      * it gets resized to this inventory's maximum amount.
      *
-     * @param slot the slot
+     * @param slot  the slot
      * @param stack the stack
      */
     @Override

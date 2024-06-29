@@ -51,6 +51,7 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
         tag.putInt("percentageUsed", instance.calculatePercentageUsed());
         tag.putBoolean("voidUpgrade", instance.voidUpgrade);
     }
+
     public void writeScreenOpeningData(FriendlyByteBuf buf) {
         buf.writeBlockPos(instance.pos);
         buf.writeInt(instance.slotCount);
@@ -60,17 +61,18 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
         int storedAmount = 0;
         int slots = instance.getContainerSize();
         for (int i = 0; i < slots; i++) {
-            storedAmount +=  instance.getItem(i).getCount();
+            storedAmount += instance.getItem(i).getCount();
         }
         return storedAmount;
     }
+
     public int calculatePercentageUsed() {
         double percentageUsed = 0;
         int totalSpace = 0;
         int usedSpace = 0;
         int slots = instance.getContainerSize();
         for (int i = 0; i < slots; i++) {
-            int amountInSlot =  instance.getItem(i).getCount();
+            int amountInSlot = instance.getItem(i).getCount();
             int maxItemStackSize = instance.getMaxStackSize();
             if (!instance.getItem(i).isEmpty()) {
                 maxItemStackSize = instance.getItem(i).getItem().getMaxStackSize();
@@ -98,10 +100,10 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
             }
             if (!instance.doTick) return;
 
-            BlockState currentState  = instance.getBlockState();
+            BlockState currentState = instance.getBlockState();
             instance.storedAmount = calculateStoredAmount();
             level.sendBlockUpdated(instance.getBlockPos(), instance.getBlockState(), instance.getBlockState(), Block.UPDATE_ALL);
-            Container container = ((Container)blockEntity);
+            Container container = ((Container) blockEntity);
 
             int totalSlots = container.getContainerSize();
             boolean allSlotsFull = true;
@@ -124,7 +126,7 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
 
             if (allSlotsFull) {
                 newStorageUsed = EnumProperties.StorageUsed.FULL;
-            } else if (emptySlots == 0){
+            } else if (emptySlots == 0) {
                 newStorageUsed = EnumProperties.StorageUsed.SLOTS_FILLED;
 
             } else if (filledSlots > 0) {
@@ -149,6 +151,7 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
         if (!instance.filterTest(level, itemStack)) return false;
         return instance.SLOTS_FOR_ALL_DIRECTIONS.length >= 1;
     }
+
     public boolean transferItems(Level level, Container container, int itemSlot, Player player, boolean toPlayer) {
         Inventory inventory = player.getInventory();
 
@@ -195,8 +198,8 @@ public class StorageBoxEntityHelper<T extends StorageBoxEntity> {
         Direction facing = StorageBox.getDirectionFacing(instance.getBlockState());
         float xOffset = 0.5f;
         float zOffset = 0.5f;
-        if (facing == Direction.NORTH) zOffset = 0.5f -0.8f;
-        if (facing == Direction.WEST) xOffset = 0.5f -0.8f;
+        if (facing == Direction.NORTH) zOffset = 0.5f - 0.8f;
+        if (facing == Direction.WEST) xOffset = 0.5f - 0.8f;
         if (facing == Direction.EAST) xOffset = 1.3f;
         if (facing == Direction.SOUTH) zOffset = 1.3f;
 

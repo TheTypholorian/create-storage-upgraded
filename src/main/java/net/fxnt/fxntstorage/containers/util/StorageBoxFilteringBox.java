@@ -13,7 +13,9 @@ import net.minecraft.world.phys.Vec3;
 public class StorageBoxFilteringBox extends ValueBoxTransform.Sided {
 
     @Override
-    protected Vec3 getSouthLocation() { return Vec3.ZERO; }
+    protected Vec3 getSouthLocation() {
+        return Vec3.ZERO;
+    }
 
     @Override
     public Vec3 getLocalOffset(BlockState state) {

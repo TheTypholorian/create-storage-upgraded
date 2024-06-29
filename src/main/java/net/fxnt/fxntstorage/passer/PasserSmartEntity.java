@@ -22,6 +22,7 @@ public class PasserSmartEntity extends SmartBlockEntity {
     public int updateEveryXTicks = 10;
     private Direction facing;
     public FilteringBehaviour filtering;
+
     public PasserSmartEntity(BlockPos pos, BlockState blockState) {
         super(ModBlocks.SMART_PASSER_ENTITY, pos, blockState);
         this.facing = this.getBlockState().getValue(FACING);

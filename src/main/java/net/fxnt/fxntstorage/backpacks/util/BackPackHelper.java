@@ -44,6 +44,7 @@ public class BackPackHelper {
         }
         return backPack;
     }
+
     public Container getBackPackContainerFromBlockPos(Level level, BlockPos blockPos) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof BackPackEntity backPackEntity) {
@@ -53,7 +54,7 @@ public class BackPackHelper {
     }
 
     public int getItemSlotFromContainer(Container container, Item itemToFind) {
-        for(int i = 0; i < container.getContainerSize(); i++) {
+        for (int i = 0; i < container.getContainerSize(); i++) {
             ItemStack slotItem = container.getItem(i);
             if (slotItem.is(itemToFind)) {
                 return i;
@@ -61,6 +62,7 @@ public class BackPackHelper {
         }
         return -1;
     }
+
     public NonNullList<BackPackSlot> getSlotsFromContainer(Container container, Level level) {
         NonNullList<BackPackSlot> slots = NonNullList.create();
         for (int i = 0; i < container.getContainerSize(); i++) {
@@ -68,6 +70,7 @@ public class BackPackHelper {
         }
         return slots;
     }
+
     public boolean itemEntityToBackPack(Container container, Level level, ItemEntity itemEntity, int startIndex, int endIndex) {
 
         ItemStack newStack = itemEntity.getItem();
@@ -110,8 +113,8 @@ public class BackPackHelper {
                 ItemStack itemStack = slot.getItem();
                 if (itemStack.isEmpty() && slot.mayPlace(newStack)) {
 
-                   int maxPutSize = Math.max(newStack.getMaxStackSize(), slot.getMaxStackSize());
-                   int availableSpace = maxPutSize - itemStack.getCount();
+                    int maxPutSize = Math.max(newStack.getMaxStackSize(), slot.getMaxStackSize());
+                    int availableSpace = maxPutSize - itemStack.getCount();
 
                     if (newStack.getCount() > availableSpace) {
                         ItemStack inputStack = newStack.split(slot.getMaxStackSize());

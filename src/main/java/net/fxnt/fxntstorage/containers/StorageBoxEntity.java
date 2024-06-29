@@ -70,8 +70,11 @@ public class StorageBoxEntity extends SmartBlockEntity implements WorldlyContain
             public int get(int index) {
                 return slotCount;
             }
+
             @Override
-            public void set(int index, int value) {}
+            public void set(int index, int value) {
+            }
+
             @Override
             public int getCount() {
                 return slotCount;
@@ -91,7 +94,9 @@ public class StorageBoxEntity extends SmartBlockEntity implements WorldlyContain
         ContainerHelper.saveAllItems(nbt, items, true);
     }
 
-    public void onLoad() { helper.onLoad();}
+    public void onLoad() {
+        helper.onLoad();
+    }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {

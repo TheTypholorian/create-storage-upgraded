@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 
 public class StorageBoxSlot extends Slot {
     private final Level level;
+
     public StorageBoxSlot(Container container, Level level, int slot, int x, int y) {
         super(container, slot, x, y);
         this.level = level;

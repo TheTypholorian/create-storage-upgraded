@@ -15,6 +15,7 @@ public class HighStackCountSync implements ContainerSynchronizer {
     public HighStackCountSync(ServerPlayer player) {
         this.player = player;
     }
+
     @Override
     public void sendInitialData(AbstractContainerMenu container, NonNullList<ItemStack> items, ItemStack carriedItem, int[] initialData) {
         BackPackNetworkHelper.syncContainer(player, container.containerId, container.getStateId(), items, carriedItem);

@@ -17,6 +17,7 @@ public class BackPackBlockMenu extends BackPackMenu {
     public BackPackBlockMenu(int containerId, Inventory playerInventory, Container container, byte backPackType) {
         super(ModMenuTypes.BACK_PACK_BLOCK_MENU, containerId, playerInventory, container, backPackType);
     }
+
     private static Container getBlockEntity(Inventory playerInventory, BlockPos pos) {
         BlockEntity blockEntityAtPos = playerInventory.player.level().getBlockEntity(pos);
 

@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class BackPackContainer extends SimpleContainer implements Container, StackedContentsCompatible {
 
-    public NonNullList<ItemStack> items = NonNullList.withSize(BackPackBlock.getSlotCount()+1, ItemStack.EMPTY);
+    public NonNullList<ItemStack> items = NonNullList.withSize(BackPackBlock.getSlotCount() + 1, ItemStack.EMPTY);
     public NonNullList<String> upgrades = NonNullList.create();
     private int size = BackPackBlock.getSlotCount();
     @Nullable
@@ -101,11 +101,11 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
 
         // Save items
         ListTag itemsList = new ListTag();
-        for(int i = 0; i < this.items.size(); ++i) {
+        for (int i = 0; i < this.items.size(); ++i) {
             ItemStack tagStack = this.items.get(i);
             if (!tagStack.isEmpty()) {
                 CompoundTag compoundTag = new CompoundTag();
-                compoundTag.putByte("Slot", (byte)i);
+                compoundTag.putByte("Slot", (byte) i);
                 tagStack.save(compoundTag);
                 compoundTag.putInt("ActualCount", tagStack.getCount());
                 itemsList.add(compoundTag);
@@ -132,6 +132,7 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
     public void stopOpen(Player player) {
         saveItemsToStack();
     }
+
     public void refreshUpgrades() {
         this.upgrades.clear();
         int UPGRADE_SLOT_START_INDEX = BackPackBlock.containerSlotCount + BackPackBlock.toolSlotCount;
@@ -151,7 +152,7 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
     @Override
     public void setChanged() {
         if (this.listeners != null) {
-            for(ContainerListener containerListener : this.listeners) {
+            for (ContainerListener containerListener : this.listeners) {
                 containerListener.containerChanged(this);
             }
         }
@@ -198,10 +199,11 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
             }
         }
     }
+
     public ItemStack removeItemType(Item item, int amount) {
         ItemStack itemStack = new ItemStack(item, 0);
 
-        for(int i = this.size - 1; i >= 0; --i) {
+        for (int i = this.size - 1; i >= 0; --i) {
             ItemStack itemStack2 = this.getItem(i);
             if (itemStack2.getItem().equals(item)) {
                 int j = amount - itemStack.getCount();
@@ -219,6 +221,7 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
 
         return itemStack;
     }
+
     @Override
     public ItemStack removeItem(int slot, int amount) {
         ItemStack itemStack = ContainerHelper.removeItem(this.items, slot, amount);
@@ -227,9 +230,10 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
         }
         return itemStack;
     }
+
     public boolean canAddItem(ItemStack stack) {
         boolean bl = false;
-        for(ItemStack itemStack : this.items) {
+        for (ItemStack itemStack : this.items) {
             if (itemStack.isEmpty() || ItemStack.isSameItemSameTags(itemStack, stack) && itemStack.getCount() < itemStack.getMaxStackSize()) {
                 bl = true;
                 break;
@@ -237,6 +241,7 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
         }
         return bl;
     }
+
     @Override
     public ItemStack removeItemNoUpdate(int slot) {
         ItemStack itemStack = this.items.get(slot);
@@ -247,13 +252,15 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
             return itemStack;
         }
     }
+
     @Override
     public int getContainerSize() {
         return this.size;
     }
+
     @Override
     public boolean isEmpty() {
-        for(ItemStack itemStack : this.items) {
+        for (ItemStack itemStack : this.items) {
             if (!itemStack.isEmpty()) {
                 return false;
             }
@@ -261,27 +268,32 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
 
         return true;
     }
+
     @Override
     public boolean stillValid(Player player) {
         return true;
     }
+
     @Override
     public void clearContent() {
         this.items.clear();
         refreshUpgrades();
         this.setChanged();
     }
+
     @Override
     public void fillStackedContents(StackedContents contents) {
-        for(ItemStack itemStack : this.items) {
+        for (ItemStack itemStack : this.items) {
             contents.accountStack(itemStack);
         }
     }
+
     public String toString() {
         return this.items.stream().filter(stack -> !stack.isEmpty()).collect(Collectors.toList()).toString();
     }
+
     private void moveItemToEmptySlots(ItemStack stack) {
-        for(int i = 0; i < this.size; ++i) {
+        for (int i = 0; i < this.size; ++i) {
             ItemStack itemStack = this.getItem(i);
             if (itemStack.isEmpty()) {
                 this.setItem(i, stack.copyAndClear());
@@ -289,8 +301,9 @@ public class BackPackContainer extends SimpleContainer implements Container, Sta
             }
         }
     }
+
     private void moveItemToOccupiedSlotsWithSameType(ItemStack stack) {
-        for(int i = 0; i < this.size; ++i) {
+        for (int i = 0; i < this.size; ++i) {
             ItemStack itemStack = this.getItem(i);
             if (ItemStack.isSameItemSameTags(itemStack, stack)) {
                 this.moveItemsBetweenStacks(stack, itemStack);

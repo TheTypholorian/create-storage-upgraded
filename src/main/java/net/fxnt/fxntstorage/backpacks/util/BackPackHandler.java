@@ -52,6 +52,7 @@ public class BackPackHandler {
             });
         }
     }
+
     public static void openBackpackFromBlock(ServerPlayer player, BackPackEntity blockEntity) {
         if (player.level().isClientSide) return;
         Container container = blockEntity;
