@@ -1,12 +1,14 @@
 package net.fxnt.fxntstorage.util;
 
 import net.fxnt.fxntstorage.backpacks.main.BackPackBlock;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
-
     // Storage Box Size
     public static final int IRON_STORAGE_BOX_SIZE = 60;
     public static final int ANDESITE_STORAGE_BOX_SIZE = 84;
@@ -58,7 +60,6 @@ public class Util {
 
     public static final int UPGRADE_SLOT_END_RANGE = UPGRADE_SLOT_START_RANGE + BackPackBlock.getUpgradeSlotCount();
 
-
     // Menus
     public static final int SLOT_SIZE = 18;
     public static final int CONTAINER_HEADER_HEIGHT = 17;
@@ -67,6 +68,16 @@ public class Util {
     public static byte OPEN_BACKPACK = 0;
     public static byte TOGGLE_HOVER = 1;
 
+    // summary colors
+    public static final TextColor SANDY_GOLD = rgbToColor(199, 149, 75); // plain
+    public static final TextColor LIGHT_GOLD = rgbToColor(238, 218, 120); // important
+    public static final TextColor LIGHT_GRAY = rgbToColor(168, 168, 168); // title
+    public static final TextColor SUMMARY_PLAIN = rgbToColor(84, 84, 84); // plain in the summary "hold shift"
+    public static final TextColor SUMMARY_HOTKEY = rgbToColor(252, 252, 252); // the hotkey in the summary "hold shift"
+
+    public static final Component SUMMARY_TEXT = Component.literal("Hold [").withStyle(Style.EMPTY.withColor(SUMMARY_PLAIN))
+            .append(Component.literal("Shift").withStyle(Style.EMPTY.withColor(SUMMARY_HOTKEY)))
+            .append(Component.literal("] for Summary").withStyle(Style.EMPTY.withColor(SUMMARY_PLAIN)));
 
     public static String formatNumber(int number) {
         if (number < 10_000) {
@@ -90,6 +101,7 @@ public class Util {
 
     public static List<String> wrapText(String text, int maxLineLength) {
         List<String> lines = new ArrayList<>();
+
         if (text == null) {
             return lines;
         }
@@ -116,11 +128,13 @@ public class Util {
                         lines.add(currentLine.toString());
                         currentLine = new StringBuilder();
                     }
+
                     // If a single word is longer than maxLineLength, split the word itself.
                     while (word.length() > maxLineLength) {
-                        lines.add(word.substring(0, maxLineLength));
-                        word = word.substring(maxLineLength);
+                        lines.add(word.substring(0, maxLineLength - 1) + '-'); // add '-' so the viewer sees that the word was split
+                        word = word.substring(maxLineLength - 1);
                     }
+
                     currentLine.append(word);
                 } else {
                     // Append a space before the word if it's not the first word on the line.
@@ -134,12 +148,12 @@ public class Util {
             if (!currentLine.isEmpty()) {
                 lines.add(currentLine.toString());
             }
-            // Add an explicit line break after processing each segment, only if it's not the last or empty segment
-            if (i < segments.length - 1) {
-                //lines.add("");
-            }
         }
 
         return lines;
+    }
+
+    public static TextColor rgbToColor(int r, int g, int b) {
+        return TextColor.fromRgb((r << 16) | (g << 8) | b);
     }
 }
